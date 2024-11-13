@@ -97,3 +97,15 @@ document.getElementById('text-to-speech').addEventListener('click', function() {
   const utterance = new SpeechSynthesisUtterance(promptText);
   speechSynthesis.speak(utterance);
 });
+document.getElementById('search-bar').addEventListener('input', function(event) {
+  const query = event.target.value.toLowerCase();
+  chrome.storage.local.get(['savedPrompts'], function(result) {
+    const savedPrompts = result.savedPrompts || [];
+    const filteredPrompts = savedPrompts.filter(promptObj =>
+      promptObj.prompt.toLowerCase().includes(query)
+    );
+
+    // Display filtered prompts (you would update the UI here)
+    displayPrompts(filteredPrompts);  // Implement this function as needed
+  });
+});
