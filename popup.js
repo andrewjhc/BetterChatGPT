@@ -1,51 +1,85 @@
-// Saving chat history functionality
-document.getElementById("saveChat").addEventListener("click", () => {
-  const chat = "Sample chat content";  // Replace with real chat data
-  chrome.runtime.sendMessage({
-    action: "saveChatHistory",
-    chat: chat
-  });
-  alert("Chat saved!");
+// popup.js
+
+// Handle saving a prompt
+document.getElementById("savePromptBtn").addEventListener("click", function() {
+  const prompt = prompt("Enter the prompt to save:");
+  if (prompt) {
+    savePrompt(prompt);
+    alert("Prompt saved!");
+  }
 });
 
-// Saving a prompt functionality
-document.getElementById("savePrompt").addEventListener("click", () => {
-  const prompt = "Sample prompt";  // Replace with the prompt user inputs
-  chrome.runtime.sendMessage({
-    action: "savePrompt",
-    prompt: prompt
-  });
-  alert("Prompt saved!");
+// Handle pinning a chat
+document.getElementById("pinChatBtn").addEventListener("click", function() {
+  const chat = prompt("Enter the chat text to pin:");
+  if (chat) {
+    pinChat(chat);
+    updatePinnedChats();
+    alert("Chat pinned!");
+  }
 });
 
-// Upload file functionality (PDF/DOCX)
-document.getElementById("uploadFile").addEventListener("click", () => {
-  let input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.pdf,.docx';
-  input.onchange = () => {
-    let file = input.files[0];
-    if (file) {
-      // Handle file processing (e.g., convert to text and send to ChatGPT)
-      console.log("File uploaded:", file);
-    }
-  };
-  input.click();
+// Handle text-to-speech
+document.getElementById("textToSpeechBtn").addEventListener("click", function() {
+  const chat = prompt("Enter chat text for text-to-speech:");
+  if (chat) {
+    textToSpeech(chat);
+  }
 });
+
+// Handle file upload
+document.getElementById("uploadBtn").addEventListener("click", function() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.docx, .pdf, .txt'; // Accepts common file formats
+  fileInput.addEventListener('change', handleFileUpload);
+  fileInput.click();
+});
+
+// Save prompts in local storage
+function savePrompt(prompt) {
+  const savedPrompts = JSON.parse(localStorage.getItem("savedPrompts")) || [];
+  savedPrompts.push(prompt);
+  localStorage.setItem("savedPrompts", JSON.stringify(savedPrompts));
+}
+
+// Pin chats
+function pinChat(chat) {
+  const pinnedChats = JSON.parse(localStorage.getItem("pinnedChats")) || [];
+  pinnedChats.push(chat);
+  localStorage.setItem("pinnedChats", JSON.stringify(pinnedChats));
+}
+
+// Update pinned chats section
+function updatePinnedChats() {
+  const pinnedChats = JSON.parse(localStorage.getItem("pinnedChats")) || [];
+  const pinnedChatsContainer = document.getElementById("pinned-chats");
+  pinnedChatsContainer.innerHTML = ""; // Clear previous content
+
+  pinnedChats.forEach(chat => {
+    const chatElement = document.createElement("div");
+    chatElement.classList.add("pinned-chat");
+    chatElement.textContent = chat;
+    pinnedChatsContainer.appendChild(chatElement);
+  });
+}
 
 // Text-to-speech functionality
-document.getElementById("textToSpeech").addEventListener("click", () => {
-  const text = "Sample response text";  // Replace with actual ChatGPT response text
-  let speech = new SpeechSynthesisUtterance(text);
-  speechSynthesis.speak(speech);
-});
+function textToSpeech(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(utterance);
+}
 
-// Display saved prompts
-chrome.runtime.sendMessage({ action: "getSavedPrompts" }, (prompts) => {
-  const promptList = document.getElementById("savedPrompts");
-  prompts.forEach(prompt => {
-    const li = document.createElement("li");
-    li.textContent = prompt;
-    promptList.appendChild(li);
-  });
+// Handle file upload (simple for now)
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (file) {
+    alert(`Uploaded file: ${file.name}`);
+    // Further file handling (like parsing PDFs or DOCX) can be done here.
+  }
+}
+
+// Initialize pinned chats section on load
+document.addEventListener("DOMContentLoaded", function() {
+  updatePinnedChats();
 });
