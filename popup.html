@@ -8,28 +8,20 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>BetterChatGPT</h1>
-    </div>
+    <h1>BetterChatGPT</h1>
 
-    <!-- Input Section -->
-    <div class="input-section">
-      <textarea id="chat-input" placeholder="Enter your message here..."></textarea>
-      <button id="save-prompt" class="feature-btn">Save Prompt</button>
-      <button id="pin-chat" class="feature-btn">Pin Chat</button>
-      <button id="text-to-speech" class="feature-btn">Text to Speech</button>
-      <input type="file" id="file-upload" class="feature-btn" accept=".docx,.pdf,.txt"/>
-    </div>
+    <!-- Prompt Input -->
+    <textarea id="chat-input" placeholder="Enter your message..."></textarea>
+    <button id="save-prompt" class="feature-btn">Save Prompt</button>
+    <button id="pin-chat" class="feature-btn">Pin Chat</button>
+    <button id="text-to-speech" class="feature-btn">Text to Speech</button>
 
-    <!-- Pinned Chats Section -->
-    <div id="pinned-chats" class="pinned-chats">
+    <!-- File Upload -->
+    <input type="file" id="file-upload" class="feature-btn" accept=".docx,.pdf,.txt"/>
+
+    <!-- Display Saved Prompts and Pinned Chats -->
+    <div id="pinned-chats">
       <h3>Pinned Chats</h3>
-      <!-- Pinned chats will appear here -->
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>BetterChatGPT v1.0</p>
     </div>
   </div>
 
