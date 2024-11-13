@@ -3,57 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatGPT Enhancer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 300px;
-      padding: 10px;
-    }
-    button {
-      margin: 5px;
-      padding: 10px;
-      cursor: pointer;
-    }
-  </style>
+  <title>BetterChatGPT</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>ChatGPT Enhancer</h1>
-  <button id="saveChat">Save Chat History</button>
-  <button id="savePrompt">Save Prompt</button>
-  <button id="uploadFile">Upload File</button>
-  <button id="textToSpeech">Text-to-Speech</button>
-  <div id="savedPromptsContainer">
-    <h3>Saved Prompts</h3>
-    <ul id="savedPrompts"></ul>
+  <div class="container">
+    <div class="header">
+      <h1>BetterChatGPT</h1>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+      <textarea id="chat-input" placeholder="Enter your message here..."></textarea>
+      <button id="save-prompt" class="feature-btn">Save Prompt</button>
+      <button id="pin-chat" class="feature-btn">Pin Chat</button>
+      <button id="text-to-speech" class="feature-btn">Text to Speech</button>
+      <input type="file" id="file-upload" class="feature-btn" accept=".docx,.pdf,.txt"/>
+    </div>
+
+    <!-- Pinned Chats Section -->
+    <div id="pinned-chats" class="pinned-chats">
+      <h3>Pinned Chats</h3>
+      <!-- Pinned chats will appear here -->
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>BetterChatGPT v1.0</p>
+    </div>
   </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
-<!-- Add a dropdown or list in popup.html to display saved prompts -->
-<div>
-    <label for="prompt-dropdown">Saved Prompts:</label>
-    <select id="prompt-dropdown">
-        <option value="">Select a saved prompt</option>
-    </select>
-</div>
-<!-- Pin chat button -->
-<button id="pin-chat">Pin Chat</button>
-<!-- Section for displaying pinned chats -->
-<div id="pinned-chats">
-    <h3>Pinned Chats</h3>
-    <!-- Pinned chats will be dynamically added here -->
-</div>
-<!-- Folder selection for organizing prompts -->
-<div>
-    <label for="folder-dropdown">Folder:</label>
-    <select id="folder-dropdown">
-        <option value="">Select Folder</option>
-        <option value="Work">Work</option>
-        <option value="Personal">Personal</option>
-    </select>
-</div>
-<!-- Text-to-speech button -->
-<button id="text-to-speech">Read Prompt</button>
-<!-- Search bar for saved prompts -->
-<input type="text" id="search-bar" placeholder="Search Prompts...">
