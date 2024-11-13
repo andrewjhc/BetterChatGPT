@@ -32,3 +32,11 @@
   "default_popup": "popup.html",
   "default_icon": "icons/icon-48.png"
 }
+"commands": {
+  "open-popup": {
+    "suggested_key": {
+      "default": "Ctrl+Shift+P"
+    },
+    "description": "Open the extension popup"
+  }
+}
