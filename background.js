@@ -79,3 +79,16 @@ chrome.storage.local.get(['pinnedChats'], function(result) {
     pinnedChatsDiv.appendChild(chatElement);
   });
 });
+// Save prompt with folder
+document.getElementById('save-prompt').addEventListener('click', function() {
+  const prompt = document.getElementById('prompt-input').value;
+  const folder = document.getElementById('folder-dropdown').value;
+
+  chrome.storage.local.get(['savedPrompts'], function(result) {
+    const savedPrompts = result.savedPrompts || [];
+    
+    // Save prompt with folder info
+    savedPrompts.push({ prompt, folder });
+    chrome.storage.local.set({ 'savedPrompts': savedPrompts });
+  });
+});
