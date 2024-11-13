@@ -1,30 +1,28 @@
 // content-script.js
 
-// Log a message to indicate the content script has loaded
-console.log('BetterChatGPT Content Script Loaded');
+// Create a floating widget
+const widget = document.createElement('div');
+widget.id = 'chat-widget';
+widget.style.position = 'fixed';
+widget.style.bottom = '20px';
+widget.style.right = '20px';
+widget.style.width = '300px';
+widget.style.height = '200px';
+widget.style.backgroundColor = 'white';
+widget.style.border = '1px solid #ccc';
+widget.style.borderRadius = '8px';
+widget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+widget.style.padding = '10px';
+widget.style.display = 'none';
+document.body.appendChild(widget);
 
-// Function to handle detecting new messages
-function detectNewMessages() {
-  const chatContainer = document.querySelector('.chat-container'); // You may need to update this selector to match the ChatGPT layout.
-  
-  if (chatContainer) {
-    const messages = chatContainer.querySelectorAll('.message'); // Assuming each message has the class 'message'.
-    
-    messages.forEach((message) => {
-      // You can perform any action when a new message is detected here.
-      // For example, logging the message content:
-      console.log('New message:', message.textContent);
-      
-      // Optionally, send a message to the background script with data
-      chrome.runtime.sendMessage({
-        type: 'new_message',
-        content: message.textContent
-      });
-    });
-  }
-}
-
-// Run the function every 2 seconds to check for new messages (you can adjust the interval).
-setInterval(detectNewMessages, 2000);
-
-// Additional functionality can be added, such as handling clicks, user input, etc.
+// Toggle the widget
+const toggleButton = document.createElement('button');
+toggleButton.innerText = 'Open ChatGPT';
+toggleButton.style.position = 'fixed';
+toggleButton.style.bottom = '250px';
+toggleButton.style.right = '20px';
+toggleButton.onclick = () => {
+  widget.style.display = widget.style.display === 'none' ? 'block' : 'none';
+};
+document.body.appendChild(toggleButton);
