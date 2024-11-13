@@ -1,22 +1,38 @@
-body {
-  font-family: Arial, sans-serif;
-  width: 300px;
-  padding: 10px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterChatGPT</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>BetterChatGPT</h1>
+    </div>
 
-input, select, button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-}
+    <!-- Input Section -->
+    <div class="input-section">
+      <textarea id="chat-input" placeholder="Enter your message here..."></textarea>
+      <button id="save-prompt" class="feature-btn">Save Prompt</button>
+      <button id="pin-chat" class="feature-btn">Pin Chat</button>
+      <button id="text-to-speech" class="feature-btn">Text to Speech</button>
+      <input type="file" id="file-upload" class="feature-btn" accept=".docx,.pdf,.txt"/>
+    </div>
 
-h1 {
-  font-size: 1.5em;
-  text-align: center;
-}
+    <!-- Pinned Chats Section -->
+    <div id="pinned-chats" class="pinned-chats">
+      <h3>Pinned Chats</h3>
+      <!-- Pinned chats will appear here -->
+    </div>
 
-#pinned-chats {
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-  margin-top: 10px;
-}
+    <!-- Footer -->
+    <div class="footer">
+      <p>BetterChatGPT v1.0</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
