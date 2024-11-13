@@ -51,3 +51,31 @@ document.getElementById('prompt-dropdown').addEventListener('change', function(e
     insertPromptIntoChat(selectedPrompt);  // Implement this function as needed
   }
 });
+// Pin chat functionality
+document.getElementById('pin-chat').addEventListener('click', function() {
+  const chatData = { /* your chat data here */ };
+
+  // Get current pinned chats from storage
+  chrome.storage.local.get(['pinnedChats'], function(result) {
+    const pinnedChats = result.pinnedChats || [];
+    
+    // Add new pinned chat to the list
+    pinnedChats.push(chatData);
+    
+    // Save back to storage
+    chrome.storage.local.set({ 'pinnedChats': pinnedChats }, function() {
+      console.log('Chat pinned!');
+    });
+  });
+});
+// Load pinned chats
+chrome.storage.local.get(['pinnedChats'], function(result) {
+  const pinnedChats = result.pinnedChats || [];
+  const pinnedChatsDiv = document.getElementById('pinned-chats');
+  
+  pinnedChats.forEach(chat => {
+    const chatElement = document.createElement('div');
+    chatElement.innerText = chat;  // You can format this as needed
+    pinnedChatsDiv.appendChild(chatElement);
+  });
+});
