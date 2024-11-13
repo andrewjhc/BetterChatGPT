@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  padding: 10px;
+}
+
+input, select, button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#pinned-chats {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
