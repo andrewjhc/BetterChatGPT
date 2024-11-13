@@ -2,10 +2,11 @@
   "manifest_version": 3,
   "name": "BetterChatGPT",
   "version": "1.0",
-  "description": "Enhance your ChatGPT experience with saving prompts, pinning chats, and more.",
+  "description": "Enhanced ChatGPT experience: save prompts, pin chats, browse with a floating ChatGPT widget, and more.",
   "permissions": [
     "storage",
     "activeTab",
+    "scripting",
     "clipboardRead",
     "clipboardWrite"
   ],
@@ -26,8 +27,5 @@
       "js": ["content-script.js"]
     }
   ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ]
+  "host_permissions": ["<all_urls>"]
 }
