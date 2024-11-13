@@ -1,65 +1,34 @@
-// Initialize the UI with saved pinned chats
-function loadPinnedChats() {
-  const pinnedChats = JSON.parse(localStorage.getItem('pinnedChats')) || [];
-  const pinnedChatsContainer = document.getElementById('pinned-chats');
-
-  pinnedChatsContainer.innerHTML = '';  // Clear existing chats
-
-  pinnedChats.forEach((chat, index) => {
-    const chatElement = document.createElement('div');
-    chatElement.classList.add('pinned-chat');
-    chatElement.innerHTML = `
-      <p>${chat}</p>
-      <button onclick="removePinnedChat(${index})">Remove</button>
-    `;
-    pinnedChatsContainer.appendChild(chatElement);
-  });
-}
-
-// Save a prompt to localStorage
+// Save prompt to local storage
 document.getElementById('save-prompt').addEventListener('click', () => {
   const prompt = document.getElementById('chat-input').value;
   if (prompt) {
-    localStorage.setItem('lastPrompt', prompt);
+    chrome.storage.local.get('savedPrompts', (data) => {
+      const prompts = data.savedPrompts || [];
+      prompts.push(prompt);
+      chrome.storage.local.set({ savedPrompts: prompts });
+    });
   }
 });
 
-// Pin a chat
+// Pin chat
 document.getElementById('pin-chat').addEventListener('click', () => {
   const chat = document.getElementById('chat-input').value;
   if (chat) {
-    const pinnedChats = JSON.parse(localStorage.getItem('pinnedChats')) || [];
-    pinnedChats.push(chat);
-    localStorage.setItem('pinnedChats', JSON.stringify(pinnedChats));
-    loadPinnedChats();
+    chrome.storage.local.get('pinnedChats', (data) => {
+      const chats = data.pinnedChats || [];
+      chats.push(chat);
+      chrome.storage.local.set({ pinnedChats: chats });
+      loadPinnedChats();
+    });
   }
 });
 
-// Remove pinned chat
-function removePinnedChat(index) {
-  const pinnedChats = JSON.parse(localStorage.getItem('pinnedChats')) || [];
-  pinnedChats.splice(index, 1);
-  localStorage.setItem('pinnedChats', JSON.stringify(pinnedChats));
-  loadPinnedChats();
-}
-
-// Text-to-Speech functionality
+// Text-to-Speech
 document.getElementById('text-to-speech').addEventListener('click', () => {
-  const chatText = document.getElementById('chat-input').value;
-  if (chatText) {
-    const speech = new SpeechSynthesisUtterance(chatText);
-    window.speechSynthesis.speak(speech);
+  const text = document.getElementById('chat-input').value;
+  if (text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
   }
 });
 
-// File upload handler (for now, just logs the file name)
-document.getElementById('file-upload').addEventListener('change', (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    console.log(`File uploaded: ${file.name}`);
-    // Add further logic for parsing files (PDF, DOCX)
-  }
-});
-
-// Initial load of pinned chats
-loadPinnedChats();
