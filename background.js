@@ -92,3 +92,8 @@ document.getElementById('save-prompt').addEventListener('click', function() {
     chrome.storage.local.set({ 'savedPrompts': savedPrompts });
   });
 });
+document.getElementById('text-to-speech').addEventListener('click', function() {
+  const promptText = document.getElementById('prompt-input').value;  // Get text from input
+  const utterance = new SpeechSynthesisUtterance(promptText);
+  speechSynthesis.speak(utterance);
+});
