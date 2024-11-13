@@ -109,3 +109,8 @@ document.getElementById('search-bar').addEventListener('input', function(event) 
     displayPrompts(filteredPrompts);  // Implement this function as needed
   });
 });
+chrome.commands.onCommand.addListener(function(command) {
+  if (command === 'open-popup') {
+    chrome.browserAction.openPopup();
+  }
+});
